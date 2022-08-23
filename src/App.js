@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Board from "./components/Board";
 
-function App() {
+const App = () => {
+  const [room, setRoom] = useState(null);
+  const [inputRoom, setInputRoom] = useState("");
+  const [error, setError] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!room && (
+        <div>
+          <h1>Select room:</h1>
+          <input
+            onChange={(e) => setInputRoom(e.target.value)}
+            placeholder="Enter a room name"
+          ></input>
+          <button onClick={() => setRoom(inputRoom)}>Submit</button>
+        </div>
+      )}
+      {room && <Board room={room} error={setError} setRoom={setRoom} />}
+      {error && <h1>{error}</h1>}
+    </>
   );
-}
+};
 
 export default App;
